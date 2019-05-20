@@ -13,16 +13,13 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.props)
     if(this.props.fetchingData) {
       return <Loader type="Rings" color="black" height="120" width="120" />
     } else {
       return (
         <div>
           <div>
-            {this.props.userData.habits.map(habit => {
-              return <div>{habit}</div>
-            })}
+            {this.props.userData.username}
           </div>
         </div>
       );

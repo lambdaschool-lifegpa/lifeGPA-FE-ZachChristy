@@ -4,8 +4,8 @@ export const axiosWithAuth = () => {
   const token = localStorage.getItem('token');
   return axios.create({
     headers: {
-      'Content-Type': 'application/JSON',
-      authorization: token
+      'Content-Type': 'application/json',
+      Authorization: token
     },
     baseURL: 'https://newlifegpa.herokuapp.com'
   });

@@ -11,7 +11,7 @@ function Nav(props) {
       <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
       { !props.isLoggedIn ?
         <NavLink to='/login'><div>Log In</div></NavLink>
-          : <NavLink to='/login'><div>Log Out</div></NavLink> }
+          : <NavLink to='/logout'><div>Log Out</div></NavLink> }
       <NavLink to='/register'><div>Register</div></NavLink>
     </nav>
   );

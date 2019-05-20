@@ -32,7 +32,7 @@ class Login extends Component {
 
   render() {
     if(this.props.isLoggedIn) {
-      return <Redirect to={`/dashboard/${this.props.loggedInUser.user.id}`} />
+      return <Redirect to={`/dashboard/${this.props.loggedInUser.id}`} />
     } else {
       return (
         <div>

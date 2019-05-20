@@ -10,9 +10,8 @@ export const login = creds => dispatch => {
   axios
     .post('https://newlifegpa.herokuapp.com/api/login', creds)
     .then(res => {
-      console.log(res)
-      // localStorage.setItem('token', res.data.token);
-      // dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+      localStorage.setItem('token', res.data.token);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({
@@ -46,11 +45,12 @@ export const FETCH_USER_DATA_START = 'FETCH_USER_DATA_START';
 export const FETCH_USER_DATA_SUCCESS = 'FETCH_USER_DATA_SUCCESS';
 export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE';
 
-export const getUserData = () => dispatch => {
+export const getUserData = id => dispatch => {
   dispatch({ type: FETCH_USER_DATA_START });
   axiosWithAuth()
-    .get('/api/users/habits/:id')
+    .get(`/api/users/habits/${id}`)
     .then(res => {
+      console.log(res)
       dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: [...res.data] });
     })
     .catch(err => {
