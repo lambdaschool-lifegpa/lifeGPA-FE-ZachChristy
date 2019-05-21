@@ -62,7 +62,7 @@ export const getUserData = id => dispatch => {
     .get(`/api/users/${id}`)
     .then(res => {
       console.log(res)
-      dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: [...res.data] });
+      dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data });
     })
     .catch(err => {
       console.log(err);

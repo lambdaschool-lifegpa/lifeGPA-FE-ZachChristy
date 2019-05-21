@@ -13,13 +13,14 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(Object.entries(this.props.userData))
     if(this.props.fetchingData) {
       return <Loader type="Rings" color="black" height="120" width="120" />
     } else {
       return (
         <div>
           <div>
-            {this.props.error ? this.props.error : this.props.userData.username}
+            hello
           </div>
         </div>
       );
