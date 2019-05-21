@@ -9,7 +9,7 @@ function Nav(props) {
       <NavLink to='/daily-reports'><div>Daily Reports</div></NavLink>
       <NavLink to='/daily-approvals'><div>Daily Approvals</div></NavLink>
       <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
-      { !props.isLoggedIn ?
+      { !localStorage.getItem('token') ?
         <NavLink to='/login'><div>Log In</div></NavLink>
           : <NavLink to='/logout'><div>Log Out</div></NavLink> }
       <NavLink to='/register'><div>Register</div></NavLink>

@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
 
-const Logout = () => {
-  localStorage.setItem('token', '');
-  return (
-    <Redirect to='/login' />
-  );
-};
+import { logout } from '../actions';
 
-export default Logout;
+class Logout extends Component {
+  state = {
+    loggedInUser: {
+      id: null,
+      username: null,
+      email: null,
+      fullName: null,
+      password: null,
+      userImgUrl: null,
+    }
+  }
+
+  componentDidMount() {
+    this.props.logout(this.state.loggedInUser)
+  }
+
+
+  render() {
+    localStorage.setItem('token', '');
+
+    return (
+      <div>
+        <Redirect to='/login' />
+      </div>
+    );
+  }
+}
+
+export default connect( null , { logout } )(Logout);
