@@ -17,7 +17,7 @@ export const login = creds => dispatch => {
     .catch(err => {
       dispatch({
         type: LOGIN_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };
@@ -46,7 +46,7 @@ export const register = creds => dispatch => {
     .catch(err => {
       dispatch({
         type: REGISTER_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };
@@ -65,9 +65,10 @@ export const getUserData = id => dispatch => {
       dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: [...res.data] });
     })
     .catch(err => {
+      console.log(err);
       dispatch({
         type: FETCH_USER_DATA_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };
@@ -105,7 +106,7 @@ export const updateHabit = habit => dispatch => {
     .catch(err => {
       dispatch({
         type: UPDATE_HABIT_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };
@@ -124,7 +125,7 @@ export const deleteHabit = id => dispatch => {
     .catch(err => {
       dispatch({
         type: DELETE_HABIT_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };

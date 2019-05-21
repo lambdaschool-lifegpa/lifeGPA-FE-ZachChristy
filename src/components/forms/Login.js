@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Loader from 'react-loader-spinner';
 import { Redirect } from 'react-router'
 
-
+import { FormContainer } from '../../styles'
 import { login } from '../../actions';
 
 class Login extends Component {
@@ -35,7 +35,8 @@ class Login extends Component {
       return <Redirect to={`/dashboard/${this.props.loggedInUser.id}`} />
     } else {
       return (
-        <div>
+        <FormContainer>
+          <h1>Log In</h1>
           <form onSubmit={this.submitHandler}>
             <input
               type='text'
@@ -49,12 +50,12 @@ class Login extends Component {
               name='password'
               value={this.state.credentials.password}
               onChange={this.changeHandler}
-              placeholder='password'
+              placeholder='Password'
             />
-            <button type='submit'>{this.props.loggingIn ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
+            <button type='submit'>{this.props.loggingIn ? <Loader type="ThreeDots" color="black" height={20} width={60} /> : 'Submit'}</button>
           </form>
           {this.props.error && <p>{this.props.error}</p>}
-        </div>
+        </FormContainer>
       );
     }
   }

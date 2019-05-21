@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Loader from 'react-loader-spinner';
 import { Redirect } from 'react-router'
 
-
+import { FormContainer } from '../../styles'
 import { register } from '../../actions';
 
 class Register extends Component {
@@ -49,7 +49,8 @@ class Register extends Component {
       )
     } else {
       return (
-        <div>
+        <FormContainer>
+          <h1>Register</h1>
           <form onSubmit={this.submitHandler}>
             <input
               type='text'
@@ -91,10 +92,10 @@ class Register extends Component {
               placeholder='Image Url ... Not Required'
             />
 
-            <button type='submit'>{this.props.registering ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
+            <button type='submit'>{this.props.registering ? <Loader type="ThreeDots" color="black" height={10} width={10} /> : 'Submit'}</button>
           </form>
           {this.props.error && <p>{this.props.error}</p>}
-        </div>
+        </FormContainer>
       );
     }
   }

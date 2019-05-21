@@ -19,7 +19,7 @@ class Dashboard extends Component {
       return (
         <div>
           <div>
-            {this.props.userData.username}
+            {this.props.error ? this.props.error : this.props.userData.username}
           </div>
         </div>
       );
