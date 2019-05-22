@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 
-import { getHabit } from '../actions'
+import { getHabit, deleteHabit } from '../actions'
 
 class Habit extends Component {
 
   clickHandler = () => {
+    this.props.deleteHabit(this.props.match.params.id)
+    .then(() => {
+      this.props.history.push('/habits-list')
+    })
   }
 
   componentDidMount() {
@@ -19,6 +23,7 @@ class Habit extends Component {
       <div>
       { !this.props.habit ? <p>Add Habits to start tracking your progress</p> : this.props.habit.habitTitle}
       <Link to='/update-habit' ><div>Edit Habit</div></Link>
+      <div onClick={this.clickHandler}>Delete</div>
       </div>
     );
   }
@@ -30,4 +35,4 @@ const mapStateToProps = state => ({
   loggedInUser: state.loginReducer.loggedInUser
 });
 
-export default connect( mapStateToProps, { getHabit } )(withRouter(Habit));
+export default connect( mapStateToProps, { getHabit, deleteHabit } )(withRouter(Habit));

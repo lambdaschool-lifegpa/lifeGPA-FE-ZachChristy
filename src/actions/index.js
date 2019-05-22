@@ -11,6 +11,7 @@ export const login = creds => dispatch => {
     .post('https://newlifegpa.herokuapp.com/api/login', creds)
     .then(res => {
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userId', res.data.user.id);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -135,9 +136,9 @@ export const DELETE_HABIT_FAILURE = 'DELETE_HABIT_FAILURE';
 export const deleteHabit = id => dispatch => {
   dispatch({ type: DELETE_HABIT_START });
   return axiosWithAuth()
-    .delete(`/api/userData/${id}`)
+    .delete(`/api/habits/${id}`)
     .then(res => {
-      dispatch({ type: DELETE_HABIT_SUCCESS, payload: [...res.data] });
+      dispatch({ type: DELETE_HABIT_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -25,6 +25,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
         <Route path='/register' component={Register} />
+        <Route path='/' component={() => <Route path='https://life-gpa-mcknight.netlify.com'></Route>} />
         <PrivateRoute path="/dashboard/:id" component={Dashboard} />
         <PrivateRoute path='/daily-reports/' component={DailyReports} />
         <PrivateRoute path='/daily-approvals/' component={DailyApprovals} />

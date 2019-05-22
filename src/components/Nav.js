@@ -18,16 +18,16 @@ function Nav(props) {
       <Navbar>
         <h1>LifeGPA</h1>
         <NavbarLeft>
-          <NavLink to='/dashboard/:id'><div>Dashboard</div></NavLink>
+          <NavLink to={`/dashboard/${localStorage.getItem('userId')}`}><div>Dashboard</div></NavLink>
           <NavLink to='/daily-reports'><div>Daily Reports</div></NavLink>
           <NavLink to='/daily-approvals'><div>Daily Approvals</div></NavLink>
           <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
         </NavbarLeft>
         <NavbarRight>
-          { props.isLoggedIn ?
+          { localStorage.getItem('userId') ?
             <NavLink to='/logout'><Login>Log Out</Login></NavLink>
               : <NavLink to='/login'><Login>Log In</Login></NavLink> }
-          { props.isLoggedIn ?
+          { localStorage.getItem('userId') ?
               (<UserNavInfoConatiner>
                 <UserNavImg src={`${props.userData.userImgUrl}`} ></UserNavImg>
                 <span>{props.userData.username}</span>
