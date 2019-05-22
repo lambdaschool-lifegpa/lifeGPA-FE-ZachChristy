@@ -10,7 +10,7 @@ class CreateHabit extends Component {
   state = {
     createdHabit: {
       habitTitle: '',
-      categoryId: ''
+      categoryId: 1
     }
   }
 
@@ -30,28 +30,20 @@ class CreateHabit extends Component {
 
     this.props.createHabit(this.state.createdHabit)
     .then(() => {
-      this.props.history.push('/daily-approvals')
+      this.props.history.push('/habits-list')
     })
     this.setState({
       createdHabit: {
-        habitTitle: '',
-        categoryId: ''
+        habitTitle: ''
       }
     })
   }
 
-  componentDidMount() {
-    this.props.getCategoryList()
-  }
-
   render() {
-    console.log(this.props)
     return (
       <div>
         <form onSubmit={this.submitHandler}>
           <input type='text' name='habitTitle' value={this.state.createdHabit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
-          <input type='text' name='categoryId' value={this.state.createdHabit.categoryId} onChange={this.changeHandler} placeholder='category' required/>
-
           <button type='submit'>{this.props.savingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
         </form>
         {this.props.error && <p>{this.props.error}</p>}

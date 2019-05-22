@@ -24,10 +24,10 @@ function Nav(props) {
           <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
         </NavbarLeft>
         <NavbarRight>
-          { !localStorage.getItem('token') ?
-            <NavLink to='/login'><Login>Log In</Login></NavLink>
-              : <NavLink to='/logout'><Login>Log Out</Login></NavLink> }
-          { localStorage.getItem('token') ?
+          { props.isLoggedIn ?
+            <NavLink to='/logout'><Login>Log Out</Login></NavLink>
+              : <NavLink to='/login'><Login>Log In</Login></NavLink> }
+          { props.isLoggedIn ?
               (<UserNavInfoConatiner>
                 <UserNavImg src={`${props.userData.userImgUrl}`} ></UserNavImg>
                 <span>{props.userData.username}</span>

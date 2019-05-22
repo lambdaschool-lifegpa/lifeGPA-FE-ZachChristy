@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
 import { updateHabit } from '../../actions';
@@ -7,9 +8,9 @@ import { updateHabit } from '../../actions';
 class UpdateHabit extends Component {
   state = {
     habit: {
-      id: this.props.userData.id,
-      title: this.props.userData.title,
-      category: this.props.userData.category
+      id: this.props.habit.id,
+      habitTitle: this.props.habit.habitTitle,
+      categoryId: this.props.habit.categoryId
     }
   }
 
@@ -29,7 +30,7 @@ class UpdateHabit extends Component {
 
     this.props.updateHabit(this.state.habit)
     .then(() => {
-      this.props.history.push('/daily-approvals')
+      this.props.history.push('/habits-list')
     })
   }
 
@@ -37,8 +38,8 @@ class UpdateHabit extends Component {
     return (
       <div>
       <form onSubmit={this.submitHandler}>
-        <input type='text' name='title' value={this.state.habit.title} onChange={this.changeHandler} placeholder='Title of Habit' required/>
-        <input type='text' name='category' value={this.state.habit.category} onChange={this.changeHandler} placeholder='category' required/>
+        <input type='text' name='habitTitle' value={this.state.habit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
+        <input type='text' name='categoryId' value={this.state.habit.categoryId} onChange={this.changeHandler} placeholder='categoryId' required/>
         <button type='submit'>{this.props.updatingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
       </form>
         {this.props.error && <p>{this.props.error}</p>}
@@ -48,8 +49,8 @@ class UpdateHabit extends Component {
 }
 
 const mapStateToProps = state => ({
-  userData: state.fetchUserDataReducer.userData,
+  habit: state.fetchHabitReducer.habit,
   updatingHabit: state.updateHabitReducer.updatingHabit
 });
 
-export default connect( mapStateToProps , { updateHabit } )(UpdateHabit);
+export default connect( mapStateToProps , { updateHabit } )(withRouter(UpdateHabit));

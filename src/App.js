@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard';
 import DailyApprovals from './components/DailyApprovals';
 import DailyReports from './components/DailyReports';
 import HabitsList from './components/HabitsList';
+import Habit from './components/Habit';
 import UpdateHabit from './components/forms/UpdateHabit';
 import CreateHabit from './components/forms/CreateHabit';
 
@@ -28,6 +29,7 @@ function App() {
         <PrivateRoute path='/daily-reports/' component={DailyReports} />
         <PrivateRoute path='/daily-approvals/' component={DailyApprovals} />
         <PrivateRoute path='/habits-list' component={HabitsList} />
+        <PrivateRoute path='/habit/:id' component={Habit} />
         <PrivateRoute path='/create-habit' component={CreateHabit} />
         <PrivateRoute path='/update-habit' component={UpdateHabit} />
       </div>

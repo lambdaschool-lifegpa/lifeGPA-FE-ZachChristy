@@ -10,7 +10,6 @@ export const login = creds => dispatch => {
   axios
     .post('https://newlifegpa.herokuapp.com/api/login', creds)
     .then(res => {
-      console.log(creds)
       localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
@@ -59,13 +58,33 @@ export const getUserData = id => dispatch => {
   axiosWithAuth()
     .get(`/api/users/habits/${id}`)
     .then(res => {
-      console.log(res.data)
       dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data[0] });
     })
     .catch(err => {
       console.log(err);
       dispatch({
         type: FETCH_USER_DATA_FAILURE,
+        payload: err.message
+      });
+    });
+};
+
+export const FETCH_HABIT_START = 'FETCH_HABIT_START';
+export const FETCH_HABIT_SUCCESS = 'FETCH_HABIT_SUCCESS';
+export const FETCH_HABIT_FAILURE = 'FETCH_HABIT_FAILURE';
+
+export const getHabit = id => dispatch => {
+  dispatch({ type: FETCH_HABIT_START });
+  axiosWithAuth()
+    .get(`/api/habits/${id}/`)
+    .then(res => {
+      console.log('gethabit', res.data)
+      dispatch({ type: FETCH_HABIT_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: FETCH_HABIT_FAILURE,
         payload: err.message
       });
     });
@@ -80,7 +99,6 @@ export const createHabit = habit => dispatch => {
   return axiosWithAuth()
     .post('/api/habits', habit)
     .then(res => {
-      console.log(res)
       dispatch({ type: CREATE_HABIT_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -98,9 +116,9 @@ export const UPDATE_HABIT_FAILURE = 'UPDATE_HABIT_FAILURE';
 export const updateHabit = habit => dispatch => {
   dispatch({ type: UPDATE_HABIT_START });
   return axiosWithAuth()
-    .put(`/api/userData/${habit.id}`, habit)
+    .put(`/api/habits/${habit.id}`, habit)
     .then(res => {
-      dispatch({ type: UPDATE_HABIT_SUCCESS, payload: [...res.data] });
+      dispatch({ type: UPDATE_HABIT_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({
@@ -138,7 +156,6 @@ export const getCategoryList= () => dispatch => {
   axiosWithAuth()
     .get(`/api/categories`)
     .then(res => {
-      console.log(res.data)
       dispatch({ type: FETCH_CATEGORY_LIST_SUCCESS, payload: res.data });
     })
     .catch(err => {
