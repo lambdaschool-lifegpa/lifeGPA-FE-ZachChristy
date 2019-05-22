@@ -36,7 +36,6 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 export const register = creds => dispatch => {
-  console.log(creds);
   dispatch({ type: REGISTER_START });
   axios
     .post('https://newlifegpa.herokuapp.com/api/register', creds)
@@ -56,13 +55,12 @@ export const FETCH_USER_DATA_SUCCESS = 'FETCH_USER_DATA_SUCCESS';
 export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE';
 
 export const getUserData = id => dispatch => {
-  console.log(id);
   dispatch({ type: FETCH_USER_DATA_START });
   axiosWithAuth()
-    .get(`/api/users/${id}`)
+    .get(`/api/users/habits/${id}`)
     .then(res => {
-      console.log(res)
-      dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data });
+      console.log(res.data)
+      dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data[0] });
     })
     .catch(err => {
       console.log(err);
@@ -80,14 +78,15 @@ export const CREATE_HABIT_FAILURE = 'CREATE_HABIT_FAILURE';
 export const createHabit = habit => dispatch => {
   dispatch({ type: CREATE_HABIT_START });
   return axiosWithAuth()
-    .post('/api/userData', habit)
+    .post('/api/habits', habit)
     .then(res => {
-      dispatch({ type: CREATE_HABIT_SUCCESS, payload: [...res.data] });
+      console.log(res)
+      dispatch({ type: CREATE_HABIT_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({
         type: CREATE_HABIT_FAILURE,
-        payload: `${err}`
+        payload: err.message
       });
     });
 };
@@ -125,6 +124,27 @@ export const deleteHabit = id => dispatch => {
     .catch(err => {
       dispatch({
         type: DELETE_HABIT_FAILURE,
+        payload: err.message
+      });
+    });
+};
+
+export const FETCH_CATEGORY_LIST_START = 'FETCH_CATEGORY_LIST_START';
+export const FETCH_CATEGORY_LIST_SUCCESS = 'FETCH_CATEGORY_LIST_SUCCESS';
+export const FETCH_CATEGORY_LIST_FAILURE = 'FETCH_CATEGORY_LIST_FAILURE';
+
+export const getCategoryList= () => dispatch => {
+  dispatch({ type: FETCH_CATEGORY_LIST_START });
+  axiosWithAuth()
+    .get(`/api/categories`)
+    .then(res => {
+      console.log(res.data)
+      dispatch({ type: FETCH_CATEGORY_LIST_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: FETCH_CATEGORY_LIST_FAILURE,
         payload: err.message
       });
     });

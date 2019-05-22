@@ -5,7 +5,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  userData: null,
+  userData: [],
   fetchingData: false,
   error: null
 };

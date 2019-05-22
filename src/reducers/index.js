@@ -6,6 +6,7 @@ import fetchUserDataReducer from './fetchUserDataReducer'
 import loginReducer from './loginReducer'
 import registerReducer from './registerReducer'
 import updateHabitReducer from './updateHabitReducer'
+import fetchCategoryListReducer from './fetchCategoryListReducer'
 
 export default combineReducers({
   createHabitReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   fetchUserDataReducer,
   loginReducer,
   registerReducer,
-  updateHabitReducer
+  updateHabitReducer,
+  fetchCategoryListReducer
 })

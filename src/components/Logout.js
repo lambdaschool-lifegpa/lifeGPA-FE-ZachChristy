@@ -22,7 +22,7 @@ class Logout extends Component {
 
 
   render() {
-    localStorage.setItem('token', '');
+    localStorage.removeItem('token');
 
     return (
       <div>

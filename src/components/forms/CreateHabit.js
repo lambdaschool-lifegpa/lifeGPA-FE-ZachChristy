@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect } from 'react-router'
+import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
-import { createHabit } from '../../actions';
+import { createHabit, getCategoryList } from '../../actions';
 
 class CreateHabit extends Component {
   state = {
     createdHabit: {
-      title: '',
-      category: ''
+      habitTitle: '',
+      categoryId: ''
     }
   }
 
@@ -26,25 +27,31 @@ class CreateHabit extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    
+
     this.props.createHabit(this.state.createdHabit)
     .then(() => {
       this.props.history.push('/daily-approvals')
     })
     this.setState({
       createdHabit: {
-        title: '',
-        category: ''
+        habitTitle: '',
+        categoryId: ''
       }
     })
   }
 
+  componentDidMount() {
+    this.props.getCategoryList()
+  }
+
   render() {
+    console.log(this.props)
     return (
       <div>
         <form onSubmit={this.submitHandler}>
-          <input type='text' name='title' value={this.state.createdHabit.title} onChange={this.changeHandler} placeholder='Title of Habit' required/>
-          <input type='text' name='category' value={this.state.createdHabit.category} onChange={this.changeHandler} placeholder='category' required/>
+          <input type='text' name='habitTitle' value={this.state.createdHabit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
+          <input type='text' name='categoryId' value={this.state.createdHabit.categoryId} onChange={this.changeHandler} placeholder='category' required/>
+
           <button type='submit'>{this.props.savingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
         </form>
         {this.props.error && <p>{this.props.error}</p>}
@@ -58,4 +65,4 @@ const mapStateToProps = state => ({
   error: state.createHabitReducer.error
 });
 
-export default connect( null, { createHabit } )(CreateHabit);
+export default connect( mapStateToProps , { createHabit, getCategoryList } )(withRouter(CreateHabit));

@@ -2,7 +2,15 @@ import React from 'react';
 import { connect } from "react-redux";
 import { NavLink } from 'react-router-dom';
 
-import { NavbarContainer, Navbar, NavbarLeft, NavbarRight } from '../styles'
+import { NavbarContainer,
+         Navbar,
+         NavbarLeft,
+         NavbarRight,
+         Login,
+         Register,
+         UserNavInfoConatiner,
+         UserNavImg
+       } from '../styles'
 
 function Nav(props) {
   return (
@@ -17,9 +25,14 @@ function Nav(props) {
         </NavbarLeft>
         <NavbarRight>
           { !localStorage.getItem('token') ?
-            <NavLink to='/login'><div>Log In</div></NavLink>
-              : <NavLink to='/logout'><div>Log Out</div></NavLink> }
-          <NavLink to='/register'><div>Register</div></NavLink>
+            <NavLink to='/login'><Login>Log In</Login></NavLink>
+              : <NavLink to='/logout'><Login>Log Out</Login></NavLink> }
+          { localStorage.getItem('token') ?
+              (<UserNavInfoConatiner>
+                <UserNavImg src={`${props.userData.userImgUrl}`} ></UserNavImg>
+                <span>{props.userData.username}</span>
+              </UserNavInfoConatiner>)
+              : <NavLink to='/register'><Register>Register</Register></NavLink> }
         </NavbarRight>
       </Navbar>
     </NavbarContainer>
@@ -27,6 +40,7 @@ function Nav(props) {
 }
 
 const mapStateToProps = state => ({
+  userData: state.fetchUserDataReducer.userData,
   isLoggedIn: state.loginReducer.isLoggedIn
 });
 
