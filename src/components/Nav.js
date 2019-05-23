@@ -24,15 +24,22 @@ function Nav(props) {
           <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
         </NavbarLeft>
         <NavbarRight>
+
           { localStorage.getItem('userId') ?
+
             <NavLink to='/logout'><Login>Log Out</Login></NavLink>
+
               : <NavLink to='/login'><Login>Log In</Login></NavLink> }
+
           { localStorage.getItem('userId') ?
+
               (<UserNavInfoConatiner>
                 <UserNavImg src={`${props.userData.userImgUrl}`} ></UserNavImg>
                 <span>{props.userData.username}</span>
               </UserNavInfoConatiner>)
+
               : <NavLink to='/register'><Register>Register</Register></NavLink> }
+
         </NavbarRight>
       </Navbar>
     </NavbarContainer>

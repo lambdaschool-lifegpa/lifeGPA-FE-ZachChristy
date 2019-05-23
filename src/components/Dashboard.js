@@ -10,7 +10,6 @@ import { getUserData } from '../actions';
 class Dashboard extends Component {
 
   componentDidMount() {
-    console.log(localStorage.getItem('userId'))
     this.props.getUserData(localStorage.getItem('userId'))
   }
 
@@ -26,7 +25,7 @@ class Dashboard extends Component {
         return acc + val
       }, 0)
 
-      const result = pointsArr / pointsArr.length
+      const result = (pointsArr / pointsArr.length) * 100
 
       if(isNaN(result)) {
         return '0%'

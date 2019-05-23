@@ -24,11 +24,11 @@ export const login = creds => dispatch => {
 
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-export const logout = creds => {
-  return {
-    type: LOGOUT_SUCCESS,
-    payload: creds
-  }
+export const logout = creds => dispatch => {
+    dispatch({type: LOGOUT_SUCCESS})
+    return {
+      payload: creds
+    }
 };
 
 export const REGISTER_START = 'REGISTER_START';

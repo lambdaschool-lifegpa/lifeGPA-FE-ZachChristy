@@ -2,6 +2,7 @@ import {
   FETCH_USER_DATA_START,
   FETCH_USER_DATA_SUCCESS,
   FETCH_USER_DATA_FAILURE,
+  LOGOUT_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -31,6 +32,12 @@ const fetchUserDataReducer = (state = initialState, action) => {
         fetchingData: false,
         error: action.payload
       }
+    case LOGOUT_SUCCESS:
+      return {
+        fetchingData: false,
+        userData: null
+      }
+
     default:
       return state
   }
