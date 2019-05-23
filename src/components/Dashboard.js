@@ -38,7 +38,7 @@ class Dashboard extends Component {
 
   render() {
 
-    if(this.props.fetchingData) {
+    if(this.props.fetchingData || !this.props.userData) {
       return <Loader type="Rings" color="black" height="120" width="120" />
     } else {
       console.log('Dashboard', this.props.userData.username)
