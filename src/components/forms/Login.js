@@ -31,7 +31,7 @@ class Login extends Component {
   }
 
   render() {
-    if(this.props.isLoggedIn) {
+    if(localStorage.getItem('userId')) {
       return <Redirect to={`/dashboard/${this.props.loggedInUser.id}`} />
     } else {
       return (

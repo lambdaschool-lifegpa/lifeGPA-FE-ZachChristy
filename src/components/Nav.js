@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { NavLink } from 'react-router-dom';
+
+import { getUserData } from '../actions'
 
 import { NavbarContainer,
          Navbar,
@@ -12,43 +14,49 @@ import { NavbarContainer,
          UserNavImg
        } from '../styles'
 
-function Nav(props) {
-  return (
-    <NavbarContainer>
-      <Navbar>
-        <h1>LifeGPA</h1>
-        <NavbarLeft>
-          <NavLink to={`/dashboard/${localStorage.getItem('userId')}`}><div>Dashboard</div></NavLink>
-          <NavLink to='/daily-reports'><div>Daily Reports</div></NavLink>
-          <NavLink to='/daily-approvals'><div>Daily Approvals</div></NavLink>
-          <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
-        </NavbarLeft>
-        <NavbarRight>
+class Nav extends Component {
 
-          { localStorage.getItem('userId') ?
+  componentDidMount() {
+    this.props.getUserData(localStorage.getItem('userId'))
+  }
 
-            <NavLink to='/logout'><Login>Log Out</Login></NavLink>
+  render() {
+    return (
+      <NavbarContainer>
+        <Navbar>
+          <h1>LifeGPA</h1>
+          <NavbarLeft>
+            <NavLink to={`/dashboard/${localStorage.getItem('userId')}`}><div>Dashboard</div></NavLink>
+            <NavLink to='/daily-reports'><div>Daily Reports</div></NavLink>
+            <NavLink to='/daily-approvals'><div>Daily Approvals</div></NavLink>
+            <NavLink to='/habits-list'><div>List Of Habits</div></NavLink>
+          </NavbarLeft>
+          <NavbarRight>
 
-              : <NavLink to='/login'><Login>Log In</Login></NavLink> }
+            { localStorage.getItem('userId') ?
 
-          { localStorage.getItem('userId') ?
+              <NavLink to='/logout'><Login>Log Out</Login></NavLink>
 
-              (<UserNavInfoConatiner>
-                <UserNavImg src={`${props.userData.userImgUrl}`} ></UserNavImg>
-                <span>{props.userData.username}</span>
-              </UserNavInfoConatiner>)
+                : <NavLink to='/login'><Login>Log In</Login></NavLink> }
 
-              : <NavLink to='/register'><Register>Register</Register></NavLink> }
+            { localStorage.getItem('userId') ?
 
-        </NavbarRight>
-      </Navbar>
-    </NavbarContainer>
-  );
+                (<UserNavInfoConatiner>
+                  <UserNavImg src={`${this.props.userData.userImgUrl}`} ></UserNavImg>
+                  <span>{this.props.userData.username}</span>
+                </UserNavInfoConatiner>)
+
+                : <NavLink to='/register'><Register>Register</Register></NavLink> }
+
+          </NavbarRight>
+        </Navbar>
+      </NavbarContainer>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-  userData: state.fetchUserDataReducer.userData,
-  isLoggedIn: state.loginReducer.isLoggedIn
+  userData: state.fetchUserDataReducer.userData
 });
 
-export default connect( mapStateToProps, { } )(Nav);
+export default connect( mapStateToProps, { getUserData } )(Nav);

@@ -56,7 +56,7 @@ export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE';
 
 export const getUserData = id => dispatch => {
   dispatch({ type: FETCH_USER_DATA_START });
-  axiosWithAuth()
+  return axiosWithAuth()
     .get(`/api/users/habits/${id}`)
     .then(res => {
       dispatch({ type: FETCH_USER_DATA_SUCCESS, payload: res.data[0] });
