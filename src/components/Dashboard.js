@@ -33,7 +33,7 @@ class Dashboard extends Component {
         return '0%'
       } else {
         const percentage = result * 100
-        return `${percentage}%`
+        return `${parseFloat(percentage).toFixed( 2 )}%`
       }
     }
   }
