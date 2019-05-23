@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 import { Redirect } from 'react-router'
 
 import { FormContainer } from '../../styles'
-import { register } from '../../actions';
+import { register, login } from '../../actions';
 
 class Register extends Component {
   state = {
@@ -14,6 +14,10 @@ class Register extends Component {
       fullName: '',
       email: '',
       userImgUrl: ''
+    },
+    loginCreds: {
+      username: '',
+      password: ''
     }
   }
 
@@ -23,6 +27,10 @@ class Register extends Component {
       credentials: {
         ...this.state.credentials,
         [e.target.name]: e.target.value
+      },
+      loginCreds: {
+        ...this.state.loginCreds,
+        [e.target.name]: e.target.value
       }
     })
   }
@@ -31,20 +39,24 @@ class Register extends Component {
     e.preventDefault();
 
     this.props.register(this.state.credentials)
+    .then(
+      this.props.login(this.state.loginCreds)
+    )
   }
 
   redirect = () => {
     setTimeout(() => {
-      this.props.history.push('/login')
+      this.props.history.push(`/dashboard/${localStorage.getItem('userId')}`)
     }, 3000)
   }
 
   render() {
     if(this.props.isRegistered) {
-      this.redirect();
+      this.redirect()
       return (
         <div>
           <p>{this.props.registerdUser.message}</p>
+          <Loader type="ThreeDots" color="black" height={10} width={10} />
         </div>
       )
     } else {
@@ -108,4 +120,4 @@ const mapStateToProps = state => ({
   error: state.registerReducer.error
 });
 
-export default connect( mapStateToProps, { register } )(Register);
+export default connect( mapStateToProps, { register, login } )(Register);

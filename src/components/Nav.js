@@ -60,7 +60,8 @@ class Nav extends Component {
 }
 
 const mapStateToProps = state => ({
-  userData: state.fetchUserDataReducer.userData
+  userData: state.fetchUserDataReducer.userData,
+  fetchingData: state.fetchUserDataReducer.fetchingData
 });
 
 export default connect( mapStateToProps, { getUserData } )(withRouter(Nav));
