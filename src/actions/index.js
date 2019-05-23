@@ -188,3 +188,41 @@ export const createCategory = category => dispatch => {
       });
     });
 };
+
+export const UPDATE_PROFILE_START = 'UPDATE_PROFILE_START';
+export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
+export const UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE';
+
+export const updateProfile = profile => dispatch => {
+  dispatch({ type: UPDATE_PROFILE_START });
+  return axiosWithAuth()
+    .put(`/api/users/${profile.id}`, profile)
+    .then(res => {
+      dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({
+        type: UPDATE_PROFILE_FAILURE,
+        payload: err.message
+      });
+    });
+};
+
+export const DELETE_PROFILE_START = 'DELETE_PROFILE_START';
+export const DELETE_PROFILE_SUCCESS = 'DELETE_PROFILE_SUCCESS';
+export const DELETE_PROFILE_FAILURE = 'DELETE_PROFILE_FAILURE';
+
+export const deleteProfile = id => dispatch => {
+  dispatch({ type: DELETE_PROFILE_START });
+  return axiosWithAuth()
+    .delete(`/api/users/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_PROFILE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({
+        type: DELETE_PROFILE_FAILURE,
+        payload: err.message
+      });
+    });
+};

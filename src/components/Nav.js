@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import { getUserData } from '../actions'
 
@@ -15,6 +15,10 @@ import { NavbarContainer,
        } from '../styles'
 
 class Nav extends Component {
+
+  clickHandler = () => {
+    this.props.history.push(`/profile/${localStorage.getItem('userId')}`)
+  }
 
   componentDidMount() {
     this.props.getUserData(localStorage.getItem('userId'))
@@ -43,7 +47,7 @@ class Nav extends Component {
 
                 (<UserNavInfoConatiner>
                   <UserNavImg src={`${this.props.userData.userImgUrl}`} ></UserNavImg>
-                  <span>{this.props.userData.username}</span>
+                  <span onClick={this.clickHandler}>{this.props.userData.username}</span>
                 </UserNavInfoConatiner>)
 
                 : <NavLink to='/register'><Register>Register</Register></NavLink> }
@@ -59,4 +63,4 @@ const mapStateToProps = state => ({
   userData: state.fetchUserDataReducer.userData
 });
 
-export default connect( mapStateToProps, { getUserData } )(Nav);
+export default connect( mapStateToProps, { getUserData } )(withRouter(Nav));

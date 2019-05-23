@@ -8,6 +8,8 @@ import Login from './components/forms/Login';
 import Logout from './components/Logout';
 import Register from './components/forms/Register';
 import Dashboard from './components/Dashboard';
+import Profile from './components/Profile';
+import UpdateProfile from './components/forms/UpdateProfile';
 import DailyApprovals from './components/DailyApprovals';
 import DailyReports from './components/DailyReports';
 import HabitsList from './components/HabitsList';
@@ -29,6 +31,8 @@ function App() {
         <Route path='/register' component={Register} />
         <Route path='/' component={() => <Route path='https://life-gpa-mcknight.netlify.com'></Route>} />
         <PrivateRoute path="/dashboard/:id" component={Dashboard} />
+        <PrivateRoute path="/profile/:id" component={Profile} />
+        <PrivateRoute path="/update-profile" component={UpdateProfile} />
         <PrivateRoute path='/daily-reports/' component={DailyReports} />
         <PrivateRoute path='/daily-approvals/' component={DailyApprovals} />
         <PrivateRoute path='/habits-list' component={HabitsList} />
