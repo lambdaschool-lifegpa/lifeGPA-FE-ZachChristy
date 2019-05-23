@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
 import { updateHabit } from '../../actions';
@@ -43,6 +43,7 @@ class UpdateHabit extends Component {
         <button type='submit'>{this.props.updatingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
       </form>
         {this.props.error && <p>{this.props.error}</p>}
+        <Link to='/create-category'><div>Create Category</div></Link>
       </div>
     );
   }

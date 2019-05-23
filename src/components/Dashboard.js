@@ -25,12 +25,14 @@ class Dashboard extends Component {
         return acc + val
       }, 0)
 
-      const result = (pointsArr / pointsArr.length) * 100
+      const result = (pointsArr / this.props.userData.habits.length)
+
+      console.log(result)
 
       if(isNaN(result)) {
         return '0%'
       } else {
-        const percentage = result.toString() * 100
+        const percentage = result * 100
         return `${percentage}%`
       }
     }

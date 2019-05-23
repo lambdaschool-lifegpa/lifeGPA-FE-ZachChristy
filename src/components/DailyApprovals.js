@@ -18,9 +18,7 @@ class DailyApprovals extends Component {
 
   const callback = () => {
       this.props.updateHabit(this.state.habit)
-      .then(
-        this.props.getUserData(localStorage.getItem('userId'))
-      )
+      this.props.getUserData(localStorage.getItem('userId'))
     }
 
     if(e.target.getAttribute('name') === 'yes'){

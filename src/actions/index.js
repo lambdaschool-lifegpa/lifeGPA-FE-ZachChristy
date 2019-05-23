@@ -157,12 +157,33 @@ export const getCategoryList= () => dispatch => {
   axiosWithAuth()
     .get(`/api/categories`)
     .then(res => {
+      console.log(res)
       dispatch({ type: FETCH_CATEGORY_LIST_SUCCESS, payload: res.data });
     })
     .catch(err => {
       console.log(err);
       dispatch({
         type: FETCH_CATEGORY_LIST_FAILURE,
+        payload: err.message
+      });
+    });
+};
+
+export const CREATE_CATEGORY_START = 'CREATE_CATEGORY_START';
+export const CREATE_CATEGORY_SUCCESS = 'CREATE_CATEGORY_SUCCESS';
+export const CREATE_CATEGORY_FAILURE = 'CREATE_CATEGORY_FAILURE';
+
+export const createCategory = category => dispatch => {
+  dispatch({ type: CREATE_CATEGORY_START });
+  return axiosWithAuth()
+    .post('/api/categories', category)
+    .then(res => {
+      console.log(res)
+      dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: res.data.categories });
+    })
+    .catch(err => {
+      dispatch({
+        type: CREATE_CATEGORY_FAILURE,
         payload: err.message
       });
     });

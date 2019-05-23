@@ -12,8 +12,10 @@ import DailyApprovals from './components/DailyApprovals';
 import DailyReports from './components/DailyReports';
 import HabitsList from './components/HabitsList';
 import Habit from './components/Habit';
+import CategoryList from './components/CategoryList';
 import UpdateHabit from './components/forms/UpdateHabit';
 import CreateHabit from './components/forms/CreateHabit';
+import CreateCategory from './components/forms/CreateCategory';
 
 import './App.css';
 
@@ -32,6 +34,8 @@ function App() {
         <PrivateRoute path='/habits-list' component={HabitsList} />
         <PrivateRoute path='/habit/:id' component={Habit} />
         <PrivateRoute path='/create-habit' component={CreateHabit} />
+        <PrivateRoute path='/category-list' component={CategoryList} />
+        <PrivateRoute path='/create-category' component={CreateCategory} />
         <PrivateRoute path='/update-habit' component={UpdateHabit} />
       </div>
     </Router>
