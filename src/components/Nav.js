@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { NavLink, withRouter } from 'react-router-dom';
+import Loader from 'react-loader-spinner'
 
 import { NavbarContainer,
          Navbar,
@@ -19,7 +20,6 @@ class Nav extends Component {
   }
 
   render() {
-    console.log('nav', this.props.userData)
     return (
       <NavbarContainer>
         <Navbar>
@@ -38,10 +38,12 @@ class Nav extends Component {
 
                 : <NavLink to='/login'><Login>Log In</Login></NavLink> }
 
-            { localStorage.getItem('userId') ?
+            { (localStorage.getItem('userId') && this.props.userData) ?
 
                 (<UserNavInfoConatiner>
-                  <UserNavImg src={`${this.props.userData.userImgUrl}`} ></UserNavImg>
+                  {this.props.userData.userImgUrl ? <UserNavImg src={`${this.props.userData.userImgUrl}`} ></UserNavImg>
+                    : <Loader type="ThreeDots" color="black" height={10} width={10} />
+                  }
                   <span onClick={this.clickHandler}>{this.props.userData.username}</span>
                 </UserNavInfoConatiner>)
 

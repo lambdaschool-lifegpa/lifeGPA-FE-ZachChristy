@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Redirect } from 'react-router'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
-import { createCategory, getCategoryList } from '../../actions';
+import { createCategory } from '../../actions';
+import { FormContainer } from '../../styles'
 
 class CreateCategory extends Component {
   state = {
@@ -60,25 +60,28 @@ class CreateCategory extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
-          <input
-            type='text'
-            name='categoryTitle'
-            value={this.state.createdCategory.categoryTitle}
-            onChange={this.changeHandler}
-            placeholder='Title of Category'
-            required
-          />
-          <input
-            type='text'
-            name='color'
-            value={this.state.createdCategory.color}
-            onChange={this.changeHandler}
-            placeholder='Category Color'
-            required
-          />
-          <button type='submit'>{this.props.savingCategory ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
-        </form>
+        <FormContainer>
+          <h1>Create a Category</h1>
+          <form onSubmit={this.submitHandler}>
+            <input
+              type='text'
+              name='categoryTitle'
+              value={this.state.createdCategory.categoryTitle}
+              onChange={this.changeHandler}
+              placeholder='Title of Category'
+              required
+            />
+            <input
+              type='text'
+              name='color'
+              value={this.state.createdCategory.color}
+              onChange={this.changeHandler}
+              placeholder='Category Color'
+              required
+            />
+            <button type='submit'>{this.props.savingCategory ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
+          </form>
+        </FormContainer>
         <p>Write your own Category and Color or Choose from the list below</p>
         {this.props.error && <p>{this.props.error}</p>}
         <div>

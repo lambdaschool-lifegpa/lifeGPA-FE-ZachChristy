@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Link, withRouter } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
+import { Link, withRouter } from 'react-router-dom'
 
 import { getHabit, deleteHabit } from '../actions'
 

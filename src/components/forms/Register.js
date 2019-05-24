@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Loader from 'react-loader-spinner';
-import { Redirect } from 'react-router'
+import Loader from 'react-loader-spinner'
 
 import { FormContainer } from '../../styles'
 import { register, login } from '../../actions';

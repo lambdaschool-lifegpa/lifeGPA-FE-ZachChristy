@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Loader from 'react-loader-spinner';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { UserImage } from '../styles'
+import { getUserData, getCategoryList } from '../actions';
 
 
 class Dashboard extends Component {
 
-  calculation = () => {
+  componentDidMount() {
+    this.props.getUserData(localStorage.getItem('userId'))
+    this.props.getCategoryList()
+  }
 
-    if(!this.props.userData.habits) {
-      return 'Add Habits to start tracking your progress'
+  calculation = () => {
+    console.log("calc", this.props.userData.habits)
+    if(this.props.userData.habits == '' || this.props.userData.habits === undefined) {
+      return '---Add Habits to start tracking your progress---'
     } else {
 
       const pointsArr = this.props.userData.habits.map(habit => {
@@ -21,8 +27,6 @@ class Dashboard extends Component {
       }, 0)
 
       const result = (pointsArr / this.props.userData.habits.length)
-
-      console.log(result)
 
       if(isNaN(result)) {
         return '0%'
@@ -34,11 +38,9 @@ class Dashboard extends Component {
   }
 
   render() {
-
-    if(this.props.fetchingData || !this.props.userData) {
+    if(!this.props.userData) {
       return <Loader type="Rings" color="black" height="120" width="120" />
     } else {
-      console.log('Dashboard', this.props.userData.username)
       return (
         <div>
           <div>
@@ -60,4 +62,4 @@ const mapStateToProps = state => ({
   error: state.fetchUserDataReducer.error
 });
 
-export default connect( mapStateToProps, {} )(withRouter(Dashboard));
+export default connect( mapStateToProps, { getUserData, getCategoryList } )(withRouter(Dashboard));

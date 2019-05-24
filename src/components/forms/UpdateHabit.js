@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
 import { updateHabit } from '../../actions';
+import { FormContainer } from '../../styles'
 
 class UpdateHabit extends Component {
   state = {
@@ -12,7 +13,8 @@ class UpdateHabit extends Component {
       habitTitle: this.props.habit.habitTitle,
       categoryId: this.props.habit.categoryId
     },
-    isClicked: false
+    isClicked: false,
+    color: null
   }
 
   changeHandler = e => {
@@ -48,18 +50,18 @@ class UpdateHabit extends Component {
     })
 
     if(!this.state.isClicked) {
-
       this.setState({
-        isClicked: true
+        isClicked: true,
+        color: `${color}`
       })
-      e.target.style.backgroundColor = `${color}`
     } else {
       this.setState({
-        isClicked: false
+        isClicked: false,
+        color: 'transparent'
       })
-      e.target.style.backgroundColor = 'transparent'
     }
 
+      e.target.style.backgroundColor = `${this.state.color}`
   }
 
   render() {
@@ -69,14 +71,14 @@ class UpdateHabit extends Component {
 
     return (
       <div>
-        <div>
+        <FormContainer>
           <h1>Edit Habit</h1>
           <form onSubmit={this.submitHandler}>
             <input type='text' name='habitTitle' value={this.state.habit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
             <button type='submit'>{this.props.updatingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
           </form>
           {this.props.error && <p>{this.props.error}</p>}
-        </div>
+        </FormContainer>
         <div>
           <h1>Habit Category</h1>
           { ( habitCategory == '' ) ? <Loader type="Rings" color="black" height="120" width="120" />

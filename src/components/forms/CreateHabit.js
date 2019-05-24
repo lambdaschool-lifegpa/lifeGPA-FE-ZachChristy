@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Redirect } from 'react-router'
+import React, { Component } from 'react'
+import { connect } from "react-redux"
 import { withRouter } from 'react-router-dom'
-import Loader from 'react-loader-spinner';
+import Loader from 'react-loader-spinner'
 
 import { createHabit } from '../../actions';
+import { FormContainer } from '../../styles'
 
 class CreateHabit extends Component {
   state = {
@@ -41,13 +41,14 @@ class CreateHabit extends Component {
 
   render() {
     return (
-      <div>
+      <FormContainer>
+        <h1>Create a Habit</h1>
         <form onSubmit={this.submitHandler}>
           <input type='text' name='habitTitle' value={this.state.createdHabit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
           <button type='submit'>{this.props.savingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
         </form>
         {this.props.error && <p>{this.props.error}</p>}
-      </div>
+      </FormContainer>
     );
   }
 }

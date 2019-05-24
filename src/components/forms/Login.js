@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Loader from 'react-loader-spinner';
 import { Redirect } from 'react-router'
+import { withRouter } from 'react-router-dom';
 
 import { FormContainer } from '../../styles'
 import { login } from '../../actions';
@@ -32,7 +33,7 @@ class Login extends Component {
 
   render() {
     if(localStorage.getItem('userId')) {
-      return <Redirect to={`/dashboard/${this.props.loggedInUser.id}`} />
+      return <Redirect to={`/dashboard/${localStorage.getItem('userId')}`} />
     } else {
       return (
         <FormContainer>
@@ -68,4 +69,4 @@ const mapStateToProps = state => ({
   error: state.loginReducer.error
 });
 
-export default connect( mapStateToProps, { login } )(Login);
+export default connect( mapStateToProps, { login } )(withRouter(Login));

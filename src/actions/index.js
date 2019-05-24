@@ -11,8 +11,8 @@ export const login = creds => dispatch => {
   return axios
     .post('https://newlifegpa.herokuapp.com/api/login', creds)
     .then(res => {
-      localStorage.setItem('token', res.data.token);
       localStorage.setItem('userId', res.data.user.id);
+      localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -158,7 +158,6 @@ export const getCategoryList= () => dispatch => {
   axiosWithAuth()
     .get(`/api/categories`)
     .then(res => {
-      console.log(res)
       dispatch({ type: FETCH_CATEGORY_LIST_SUCCESS, payload: res.data });
     })
     .catch(err => {
