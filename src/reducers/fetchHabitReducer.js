@@ -5,7 +5,7 @@ import {
 } from '../actions';
 
 const initialState = {
-  userData: {},
+  habit: {},
   fetchingHabit: false,
   error: null
 };

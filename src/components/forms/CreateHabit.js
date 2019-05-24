@@ -4,7 +4,7 @@ import { Redirect } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
-import { createHabit, getCategoryList } from '../../actions';
+import { createHabit } from '../../actions';
 
 class CreateHabit extends Component {
   state = {
@@ -57,4 +57,4 @@ const mapStateToProps = state => ({
   error: state.createHabitReducer.error
 });
 
-export default connect( mapStateToProps , { createHabit, getCategoryList } )(withRouter(CreateHabit));
+export default connect( mapStateToProps , { createHabit } )(withRouter(CreateHabit));

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
-import { updateProfile, getUserData } from '../../actions';
+import { updateProfile } from '../../actions';
 
 class UpdateProfile extends Component {
   state = {
@@ -37,10 +37,6 @@ class UpdateProfile extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.getUserData(localStorage.getItem('userId'))
-  }
-
   render() {
     return (
       <div>
@@ -65,4 +61,4 @@ const mapStateToProps = state => ({
   error: state.updateProfileReducer.error
 });
 
-export default connect( mapStateToProps , { updateProfile, getUserData } )(withRouter(UpdateProfile));
+export default connect( mapStateToProps , { updateProfile } )(withRouter(UpdateProfile));

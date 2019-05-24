@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 import { Link, withRouter } from 'react-router-dom';
 
 import { UserImage } from '../styles'
-import { getUserData, deleteProfile } from '../actions';
+import { deleteProfile } from '../actions';
 
 
 class Profile extends Component {
@@ -43,10 +43,6 @@ class Profile extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.getUserData(localStorage.getItem('userId'))
-  }
-
   render() {
 
     if(this.props.fetchingData || !this.props.userData) {
@@ -79,4 +75,4 @@ const mapStateToProps = state => ({
   error: state.fetchUserDataReducer.error
 });
 
-export default connect( mapStateToProps, { getUserData, deleteProfile } )(withRouter(Profile));
+export default connect( mapStateToProps, { deleteProfile } )(withRouter(Profile));

@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { Route, Redirect, withRouter} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
 
@@ -14,16 +15,30 @@ import DailyApprovals from './components/DailyApprovals';
 import DailyReports from './components/DailyReports';
 import HabitsList from './components/HabitsList';
 import Habit from './components/Habit';
-import CategoryList from './components/CategoryList';
 import UpdateHabit from './components/forms/UpdateHabit';
 import CreateHabit from './components/forms/CreateHabit';
 import CreateCategory from './components/forms/CreateCategory';
 
 import './App.css';
+import { getUserData, getCategoryList } from './actions';
 
-function App() {
-  return (
-    <Router>
+class App extends Component {
+
+  componentDidMount() {
+    this.props.getUserData(localStorage.getItem('userId'))
+    this.props.getCategoryList()
+  }
+
+  helper = () => {
+   if(this.props.isLoggedIn == false) {
+     if(this.props.location.pathname !== "/login" && this.props.location.pathname !== "/register" && this.props.location.pathname !== "/" && this.props.location.pathname !== "/logout") {
+       this.props.history.push('/login')
+     }
+   }
+ }
+
+  render() {
+    return (
       <div className="App">
         <Nav />
         <Route path='/login' component={Login} />
@@ -38,12 +53,16 @@ function App() {
         <PrivateRoute path='/habits-list' component={HabitsList} />
         <PrivateRoute path='/habit/:id' component={Habit} />
         <PrivateRoute path='/create-habit' component={CreateHabit} />
-        <PrivateRoute path='/category-list' component={CategoryList} />
         <PrivateRoute path='/create-category' component={CreateCategory} />
         <PrivateRoute path='/update-habit' component={UpdateHabit} />
       </div>
-    </Router>
-  );
+    );
+  }
+
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLoggedIn: state.loginReducer.isLoggedIn
+});
+
+export default connect( mapStateToProps , { getUserData, getCategoryList } )(withRouter(App));

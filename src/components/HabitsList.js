@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 
-import { getUserData } from '../actions'
+import { getUserData } from '../actions';
 
 class HabitsList extends Component {
 
@@ -11,6 +11,7 @@ class HabitsList extends Component {
   }
 
   render(){
+
     return (
       <div>
       { !this.props.userData.habits ? <p>Add Habits to start tracking your progress</p> : this.props.userData.habits.map(habit => {
@@ -27,7 +28,9 @@ class HabitsList extends Component {
 
 const mapStateToProps = state => ({
   userData: state.fetchUserDataReducer.userData,
-  loggedInUser: state.loginReducer.loggedInUser
+  loggedInUser: state.loginReducer.loggedInUser,
+  categoryList: state.fetchCategoryListReducer.categoryList,
+  fetchingCategoryList: state.fetchCategoryListReducer.fetchingCategoryList
 });
 
 export default connect( mapStateToProps, { getUserData } )(withRouter(HabitsList));

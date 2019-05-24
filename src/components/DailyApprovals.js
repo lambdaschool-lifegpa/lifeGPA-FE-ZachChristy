@@ -43,10 +43,6 @@ class DailyApprovals extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getUserData(localStorage.getItem('userId'))
-  }
-
   render() {
     console.log(this.props.userData.habits)
     return (

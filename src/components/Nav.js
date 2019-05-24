@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { getUserData } from '../actions'
-
 import { NavbarContainer,
          Navbar,
          NavbarLeft,
@@ -20,11 +18,8 @@ class Nav extends Component {
     this.props.history.push(`/profile/${localStorage.getItem('userId')}`)
   }
 
-  componentDidMount() {
-    this.props.getUserData(localStorage.getItem('userId'))
-  }
-
   render() {
+    console.log('nav', this.props.userData)
     return (
       <NavbarContainer>
         <Navbar>
@@ -64,4 +59,4 @@ const mapStateToProps = state => ({
   fetchingData: state.fetchUserDataReducer.fetchingData
 });
 
-export default connect( mapStateToProps, { getUserData } )(withRouter(Nav));
+export default connect( mapStateToProps, { } )(withRouter(Nav));

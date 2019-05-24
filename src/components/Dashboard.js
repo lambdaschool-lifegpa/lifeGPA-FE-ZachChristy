@@ -4,14 +4,9 @@ import Loader from 'react-loader-spinner';
 import { Link, withRouter } from 'react-router-dom';
 
 import { UserImage } from '../styles'
-import { getUserData } from '../actions';
 
 
 class Dashboard extends Component {
-
-  componentDidMount() {
-    this.props.getUserData(localStorage.getItem('userId'))
-  }
 
   calculation = () => {
 
@@ -65,4 +60,4 @@ const mapStateToProps = state => ({
   error: state.fetchUserDataReducer.error
 });
 
-export default connect( mapStateToProps, { getUserData } )(withRouter(Dashboard));
+export default connect( mapStateToProps, {} )(withRouter(Dashboard));

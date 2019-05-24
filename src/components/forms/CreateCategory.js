@@ -29,7 +29,7 @@ class CreateCategory extends Component {
 
     this.props.createCategory(this.state.createdCategory)
     .then(() => {
-      this.props.history.push('/category-list')
+      this.props.history.push('/update-habit')
     })
     this.setState({
       createdCategory: {
@@ -55,10 +55,6 @@ class CreateCategory extends Component {
         }
       })
     }
-  }
-
-  componentDidMount() {
-    this.props.getCategoryList()
   }
 
   render() {
@@ -123,4 +119,4 @@ const mapStateToProps = state => ({
   error: state.createCategoryReducer.error
 });
 
-export default connect( mapStateToProps , { createCategory, getCategoryList } )(withRouter(CreateCategory));
+export default connect( mapStateToProps , { createCategory } )(withRouter(CreateCategory));
