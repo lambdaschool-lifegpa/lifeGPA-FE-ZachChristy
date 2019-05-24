@@ -29,7 +29,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/logout' component={Logout} />
         <Route path='/register' component={Register} />
-        <Route path='/' component={() => <Route path='https://life-gpa-mcknight.netlify.com'></Route>} />
+        <Route exact path='/' component={ () => { window.location.href='https://life-gpa-mcknight.netlify.com'; return null } }/>
         <PrivateRoute path="/dashboard/:id" component={Dashboard} />
         <PrivateRoute path="/profile/:id" component={Profile} />
         <PrivateRoute path="/update-profile" component={UpdateProfile} />
