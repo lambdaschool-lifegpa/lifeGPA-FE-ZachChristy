@@ -46,6 +46,7 @@ class CreateHabit extends Component {
         <form onSubmit={this.submitHandler}>
           <input type='text' name='habitTitle' value={this.state.createdHabit.habitTitle} onChange={this.changeHandler} placeholder='Title of Habit' required/>
           <button type='submit'>{this.props.savingHabit ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
+          <p onClick={() => this.props.history.goBack()}>Go Back</p>
         </form>
         {this.props.error && <p>{this.props.error}</p>}
       </FormContainer>

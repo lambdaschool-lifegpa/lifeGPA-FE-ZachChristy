@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom'
 
+import { HabitContainer, HabitCatContainer, Button, EditDeleteContainer } from '../styles'
 import { getHabit, deleteHabit } from '../actions'
 
 class Habit extends Component {
@@ -24,18 +25,21 @@ class Habit extends Component {
     return (
       <div>
         <h1>Selected Habit</h1>
-        <div>
+        <HabitContainer>
           { (this.props.habit == '' || catColor == '') ? <p>Add Habits to start tracking your progress</p>
-            : <div>
-                <div style={{width: '20px', height: '20px', border: '.01px solid black', borderRadius: '50%', backgroundColor: `${catColor[0].color}`}}>
+            : <HabitCatContainer>
+                <div style={{width: '20px', height: '20px', border: `2px solid ${catColor[0].color}`, borderRadius: '50%' }}>
                 </div>
-                <div>{catColor[0].categoryTitle}</div>
-                <div>{this.props.habit.habitTitle}</div>
-              </div>
+                <h4>{catColor[0].categoryTitle}</h4>
+                <span>|</span>
+                <h4>{this.props.habit.habitTitle}</h4>
+              </HabitCatContainer>
           }
-        </div>
-        <Link to='/update-habit' ><div>Edit Habit</div></Link>
-        <div onClick={this.clickHandler}>Delete</div>
+          <EditDeleteContainer>
+            <Button><Link to='/update-habit' >Edit Habit</Link></Button>
+            <Button onClick={this.clickHandler}>Delete</Button>
+          </EditDeleteContainer>
+        </HabitContainer>
       </div>
     );
   }

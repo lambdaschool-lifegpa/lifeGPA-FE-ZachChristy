@@ -48,4 +48,15 @@ export const FormContainer = styled.div`
       background-color: #2B2B2B;
       font-weight: 500;
     }
+  }
+
+  p {
+    width: 100%;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 `;

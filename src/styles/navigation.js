@@ -48,6 +48,7 @@ export const NavbarLeft = styled.div`
 
     &:hover {
       transform: scale(1.1);
+      color: #FFA223;
     }
   }
 `;
@@ -95,9 +96,15 @@ export const UserNavInfoConatiner = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 75px;
+  height: 75px;
 
   span {
     margin-left: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #FFA223;
+    }
   }
 `;
 
@@ -106,4 +113,5 @@ export const UserNavImg = styled.img`
   height: 30px;
   border: .02px solid white;
   border-radius: 50%;
+  margin-left: 20px;
 `;

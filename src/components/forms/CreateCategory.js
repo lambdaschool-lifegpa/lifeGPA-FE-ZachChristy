@@ -4,7 +4,13 @@ import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
 import { createCategory } from '../../actions';
-import { FormContainer } from '../../styles'
+import {
+  FormContainer,
+  ColorandCatContainer,
+  Button,
+  UpdateContainer,
+  PickerContainer,
+  Column } from '../../styles'
 
 class CreateCategory extends Component {
   state = {
@@ -59,7 +65,7 @@ class CreateCategory extends Component {
 
   render() {
     return (
-      <div>
+      <UpdateContainer>
         <FormContainer>
           <h1>Create a Category</h1>
           <form onSubmit={this.submitHandler}>
@@ -80,37 +86,41 @@ class CreateCategory extends Component {
               required
             />
             <button type='submit'>{this.props.savingCategory ? <Loader type="ThreeDots" color="black" height={5} width={5} /> : 'Submit'}</button>
+            <p onClick={() => this.props.history.goBack()}>Go Back</p>
           </form>
         </FormContainer>
         <p>Write your own Category and Color or Choose from the list below</p>
         {this.props.error && <p>{this.props.error}</p>}
-        <div>
-          <h4>Choose a color</h4>
-          <div>
-            <div>
-              <p name='color' onClick={this.clickHandler}>red</p>
-              <p name='color' onClick={this.clickHandler}>blue</p>
-              <p name='color' onClick={this.clickHandler}>green</p>
-            </div>
-            <div>
-              <p name='color' onClick={this.clickHandler}>yellow</p>
-              <p name='color' onClick={this.clickHandler}>purple</p>
-              <p name='color' onClick={this.clickHandler}>pink</p>
-            </div>
-            <div>
-              <p name='color' onClick={this.clickHandler}>orange</p>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h4>Category List</h4>
-          { !this.props.categoryList ? <p>Category List is Empty</p> : this.props.categoryList.map(category => {
-            return <div key={category.id}>
-                    <p name='category' onClick={e => this.clickHandler(e, category.categoryTitle)} >{category.categoryTitle}</p>
-                  </div>
-          })}
-        </div>
-      </div>
+
+        <PickerContainer>
+
+          <Column>
+            <h1>Choose a color</h1>
+            <ColorandCatContainer>
+              <div>
+                <h4 name='color' onClick={this.clickHandler}>red</h4>
+                <h4 name='color' onClick={this.clickHandler}>blue</h4>
+                <h4 name='color' onClick={this.clickHandler}>green</h4>
+                <h4 name='color' onClick={this.clickHandler}>yellow</h4>
+                <h4 name='color' onClick={this.clickHandler}>purple</h4>
+                <h4 name='color' onClick={this.clickHandler}>pink</h4>
+                <h4 name='color' onClick={this.clickHandler}>orange</h4>
+              </div>
+            </ColorandCatContainer>
+          </Column>
+
+          <Column>
+            <h1>Category List</h1>
+            <ColorandCatContainer>
+              { !this.props.categoryList ? <p>Category List is Empty</p> : this.props.categoryList.map(category => {
+                return <div key={category.id}>
+                        <h4 name='category' onClick={e => this.clickHandler(e, category.categoryTitle)} >{category.categoryTitle}</h4>
+                      </div>
+              })}
+            </ColorandCatContainer>
+          </Column>
+        </PickerContainer>
+      </UpdateContainer>
     );
   }
 }

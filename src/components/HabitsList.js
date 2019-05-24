@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 
+import { ListContainer, ViewHabit } from '../styles'
 import { getUserData } from '../actions';
 
 class HabitsList extends Component {
@@ -14,12 +15,16 @@ class HabitsList extends Component {
 
     return (
       <div>
-      { !this.props.userData.habits ? <p>Add Habits to start tracking your progress</p> : this.props.userData.habits.map(habit => {
-        return <div key={habit.id}>
-                <Link to={`/habit/${habit.id}`} ><h4>{habit.habitTitle}</h4></Link>
-              </div>
-      })}
-      <Link to='/create-habit' ><div>Add Habit</div></Link>
+        <h1>List of your Habits</h1>
+        <ListContainer>
+          { !this.props.userData.habits ? <h5>Add Habits to start tracking your progress</h5> : this.props.userData.habits.map(habit => {
+            return <ViewHabit key={habit.id}>
+                    <Link to={`/habit/${habit.id}`} ><h4>{habit.habitTitle}</h4></Link>
+                    <Link to={`/habit/${habit.id}`} ><i className="fas fa-eye"></i></Link>
+                  </ViewHabit>
+          })}
+          <Link to='/create-habit' ><p>Add Habit</p></Link>
+        </ListContainer>
       </div>
     );
   }

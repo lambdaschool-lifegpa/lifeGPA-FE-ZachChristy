@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Loader from 'react-loader-spinner';
 import { Link, withRouter } from 'react-router-dom';
 
-import { UserImage } from '../styles'
+import { ProfileImage, Button, EditDeleteContainer, ProfileContainer, UserInfo } from '../styles'
 import { deleteProfile } from '../actions';
 
 
@@ -50,19 +50,17 @@ class Profile extends Component {
     } else {
       console.log('Dashboard', this.props.userData.username)
       return (
-        <div>
-          <div>
-            <h1>{this.props.userData.username}</h1>
-            <UserImage src={`${this.props.userData.userImgUrl}`} ></UserImage>
-          </div>
-          <div>
-            <h1>LifeGPA { this.calculation() }</h1>
-          </div>
-          <div>
-            <Link to='/update-profile' ><div>Edit Profile</div></Link>
-            <div onClick={this.clickHandler}>Delete</div>
-          </div>
-        </div>
+        <ProfileContainer>
+            <ProfileImage src={`${this.props.userData.userImgUrl}`} ></ProfileImage>
+          <UserInfo>
+            <h2>{this.props.userData.username}</h2>
+            <h4>LifeGPA { this.calculation() }</h4>
+          </UserInfo>
+          <EditDeleteContainer>
+            <Button><Link to='/update-profile' >Edit Profile</Link></Button>
+            <Button onClick={this.clickHandler}>Delete</Button>
+          </EditDeleteContainer>
+        </ProfileContainer>
       );
     }
   }
