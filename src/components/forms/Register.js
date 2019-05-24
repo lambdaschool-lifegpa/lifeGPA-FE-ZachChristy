@@ -38,9 +38,6 @@ class Register extends Component {
     e.preventDefault();
 
     this.props.register(this.state.credentials)
-    .then(
-      this.props.login(this.state.loginCreds)
-    )
   }
 
   redirect = () => {
