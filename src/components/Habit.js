@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom'
 
 import { HabitContainer, HabitCatContainer, Button, EditDeleteContainer } from '../styles'
-import { getHabit, deleteHabit } from '../actions'
+import { getHabit, deleteHabit, getUserData, getCategoryList } from '../actions'
 
 class Habit extends Component {
 
@@ -16,6 +16,8 @@ class Habit extends Component {
 
   componentDidMount() {
     this.props.getHabit(this.props.match.params.id)
+    this.props.getUserData(localStorage.getItem('userId'))
+    this.props.getCategoryList()
   }
 
   render(){
@@ -52,4 +54,4 @@ const mapStateToProps = state => ({
   fetchingCategoryList: state.fetchCategoryListReducer.fetchingCategoryList
 });
 
-export default connect( mapStateToProps, { getHabit, deleteHabit } )(withRouter(Habit));
+export default connect( mapStateToProps, { getHabit, deleteHabit, getUserData, getCategoryList } )(withRouter(Habit));

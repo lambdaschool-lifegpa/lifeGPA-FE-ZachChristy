@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom'
 import Loader from 'react-loader-spinner';
 
-import { createCategory } from '../../actions';
+import { createCategory, getUserData, getCategoryList } from '../../actions';
 import {
   FormContainer,
   ColorandCatContainer,
@@ -61,6 +61,11 @@ class CreateCategory extends Component {
         }
       })
     }
+  }
+
+  componentDidMount() {
+    this.props.getUserData(localStorage.getItem('userId'))
+    this.props.getCategoryList()
   }
 
   render() {
@@ -132,4 +137,4 @@ const mapStateToProps = state => ({
   error: state.createCategoryReducer.error
 });
 
-export default connect( mapStateToProps , { createCategory } )(withRouter(CreateCategory));
+export default connect( mapStateToProps , { createCategory, getUserData, getCategoryList } )(withRouter(CreateCategory));
